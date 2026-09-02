@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,47 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- ==================== Firebase SDK ==================== -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-  // =========================================================
-  // 🔧 حط بيانات مشروعك هنا (من Firebase Console -> Project Settings -> Your apps -> </>)
-  // =========================================================
-  const firebaseConfig = {
-    apiKey: "AIzaSyCfdoF9JcuQqYXw5rIsz_PjnrVM68syE7M",
-    authDomain: "ahmedtv-cb49c.firebaseapp.com",
-    databaseURL: "https://ahmedtv-cb49c-default-rtdb.firebaseio.com",
-    projectId: "ahmedtv-cb49c",
-    storageBucket: "ahmedtv-cb49c.firebasestorage.app",
-    messagingSenderId: "168430987024",
-    appId: "1:168430987024:web:ff0358fdf169156a632795",
-    measurementId: "G-4CBXE7LK36"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  async function loadAccounts() {
-    try {
-      await signInAnonymously(auth);
-      const snap = await getDocs(collection(db, "accounts"));
-      const accounts = [];
-      snap.forEach(doc => {
-        const d = doc.data();
-        if (d.host) accounts.push({ host: d.host, user: d.user, pass: d.pass });
-      });
-      window.__startApp(accounts);
-    } catch (e) {
-      console.error("Firebase error:", e);
-      window.__startApp([]);
-    }
-  }
-  loadAccounts();
-</script>
 
 <style>
   :root{
@@ -69,7 +29,7 @@
 
   h1,h2,h3,.display{font-family:'Tajawal',sans-serif}
 
-  /* ===== Loading ===== */
+  
   #loader{
     position:fixed;inset:0;background:var(--bg);z-index:999;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
@@ -83,7 +43,7 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   #loader p{color:var(--text-mute);font-size:14px;font-weight:600;letter-spacing:.3px}
 
-  /* ===== Top bar ===== */
+
   header.topbar{
     position:fixed;top:0;left:0;right:0;z-index:200;
     display:flex;align-items:center;justify-content:space-between;
@@ -130,7 +90,7 @@
   .search-wrap.open input{ width:200px; opacity:1; padding:9px 16px; }
   .search-wrap i{ cursor:pointer; }
 
-  /* ===== Hero ===== */
+  
   .hero{ position:relative; width:100%; height:88vh; min-height:520px; overflow:hidden; }
   .hero-slide{
     position:absolute; inset:0; opacity:0; transform:scale(1.04);
@@ -178,7 +138,7 @@
   .hero-dot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.25); cursor:pointer; transition:all .3s; }
   .hero-dot.active{ width:26px; border-radius:4px; background:var(--gold); }
 
-  /* ===== Rows ===== */
+  
   .rows-wrap{ position:relative; z-index:5; margin-top:-6vh; padding-bottom:80px; }
   .row-section{ margin-bottom:38px; }
   .row-head{
@@ -249,7 +209,7 @@
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
 
-  /* channel chip (live rows use round logos) */
+  
   .chan-card{
     flex:0 0 auto; width:150px; cursor:pointer; scroll-snap-align:start;
     background:linear-gradient(155deg,var(--card),var(--card-2)); border-radius:14px;
@@ -261,7 +221,7 @@
   .chan-card .name{ font-size:12.5px; font-weight:700; color:#e7e9f2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .chan-live-badge{ position:absolute; top:10px; left:10px; background:#dc2626; color:#fff; font-size:8.5px; font-weight:800; padding:3px 7px; border-radius:4px; }
 
-  /* ===== filter pills ===== */
+  
   .pill-row{ display:flex; gap:8px; overflow-x:auto; padding:2px 5vw 16px; }
   .pill-row::-webkit-scrollbar{ display:none; }
   .pill{
@@ -271,7 +231,7 @@
   }
   .pill.active{ background:linear-gradient(135deg,var(--primary),var(--accent)); color:#fff; border-color:transparent; }
 
-  /* ===== search grid page ===== */
+
   .page{ display:none; padding:130px 5vw 80px; min-height:100vh; }
   .page.active{ display:block; }
   .page-title{ font-size:24px; font-weight:900; margin-bottom:6px; }
@@ -281,7 +241,7 @@
   .empty i{ font-size:52px; margin-bottom:18px; color:var(--card-2); }
   .empty p{ font-size:15px; font-weight:700; color:var(--text-dim); }
 
-  /* channel list style for live page */
+  
   .chan-list{ display:flex; flex-direction:column; gap:10px; }
   .chan-row{
     display:flex; align-items:center; gap:14px; background:var(--card); border-radius:14px;
@@ -296,7 +256,7 @@
   .chan-row .meta .l::before{ content:'';width:6px;height:6px;border-radius:50%;background:#ef4444;animation:blink 1.4s infinite; }
   .chan-row .play{ width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent)); display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0; }
 
-  /* ===== Player Modal ===== */
+
   .player-modal{ position:fixed; inset:0; background:#000; z-index:1000; display:none; flex-direction:column; }
   .player-modal.active{ display:flex; }
   .player-top{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:linear-gradient(180deg,rgba(0,0,0,.8),transparent); position:absolute; top:0; left:0; right:0; z-index:2; }
@@ -304,7 +264,7 @@
   .player-close{ width:38px;height:38px;border-radius:50%; background:rgba(255,255,255,.12); display:flex;align-items:center;justify-content:center; color:#fff; cursor:pointer; font-size:16px; }
   video{ width:100%; height:100%; object-fit:contain; background:#000; }
 
-  /* ===== Series detail ===== */
+  
   .series-hero{ width:100%; height:52vh; min-height:340px; position:relative; background-size:cover; background-position:center; border-radius:16px; overflow:hidden; margin-bottom:24px; }
   .series-hero::after{ content:''; position:absolute; inset:0; background:linear-gradient(0deg,var(--bg) 5%,transparent 55%),linear-gradient(90deg,rgba(5,7,13,.85),transparent 60%); }
   .series-hero-content{ position:absolute; bottom:24px; right:24px; left:24px; z-index:2; }
@@ -318,7 +278,7 @@
   .ep-row .sub{ font-size:11.5px; color:var(--text-mute); margin-top:4px; }
   .ep-row i{ color:var(--accent); font-size:16px; background:var(--accent)18; padding:12px; border-radius:50%; }
 
-  /* ===== Theme picker ===== */
+  
   .theme-panel{ position:fixed; top:70px; left:5vw; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; z-index:250; display:none; box-shadow:0 20px 50px rgba(0,0,0,.5); }
   .theme-panel.active{ display:block; animation:popIn .2s ease; }
   @keyframes popIn{ from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
@@ -382,7 +342,7 @@
   <div class="theme-swatches" id="themeSwatches"></div>
 </div>
 
-<!-- ===== HOME PAGE ===== -->
+
 <div class="page active" id="page-home" style="padding:0;">
   <section class="hero" id="hero">
     <div class="hero-dots" id="heroDots"></div>
@@ -391,7 +351,7 @@
   <div class="rows-wrap" id="homeRows"></div>
 </div>
 
-<!-- ===== LIVE PAGE ===== -->
+
 <div class="page" id="page-live">
   <div class="page-title">البث المباشر</div>
   <div class="page-sub">تابع قنواتك المفضلة أونلاين</div>
@@ -399,7 +359,7 @@
   <div class="chan-list" id="liveGrid"></div>
 </div>
 
-<!-- ===== MOVIES PAGE ===== -->
+
 <div class="page" id="page-movies">
   <div class="page-title">الأفلام</div>
   <div class="page-sub">أحدث وأفضل الأفلام</div>
@@ -407,7 +367,7 @@
   <div class="grid" id="moviesGrid"></div>
 </div>
 
-<!-- ===== SERIES PAGE ===== -->
+
 <div class="page" id="page-series">
   <div class="page-title">المسلسلات</div>
   <div class="page-sub">مواسم وحلقات كاملة</div>
@@ -415,21 +375,21 @@
   <div class="grid" id="seriesGrid"></div>
 </div>
 
-<!-- ===== FAVORITES PAGE ===== -->
+
 <div class="page" id="page-favorites">
   <div class="page-title">قائمتي</div>
   <div class="page-sub">المحتوى المفضل لديك</div>
   <div class="grid" id="favoritesGrid"></div>
 </div>
 
-<!-- ===== SEARCH RESULTS PAGE ===== -->
+
 <div class="page" id="page-search">
   <div class="page-title">نتائج البحث</div>
   <div class="page-sub" id="searchSub"></div>
   <div class="grid" id="searchGrid"></div>
 </div>
 
-<!-- ===== SERIES DETAIL PAGE ===== -->
+
 <div class="page" id="page-seriesDetail">
   <div id="seriesDetailContent"></div>
 </div>
@@ -448,6 +408,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
 <script src="app.js"></script>
+<script>
+  
+  window.__startApp();
+</script>
 </body>
 </html>
-
