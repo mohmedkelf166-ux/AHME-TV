@@ -1,5 +1,17 @@
 // ==================== AHMED TV — Website Logic ====================
 
+// 🔧 رابط الـ Proxy بتاعك على Cloudflare Workers (لحل مشكلة HTTP/HTTPS)
+const PROXY_URL = 'https://divine-brook-eddc.mohmedkelf166.workers.dev';
+
+// يحول أي رابط HTTP عادي بحيث يمر من خلال الـ Proxy لو كان غير آمن (http)
+function proxify(url){
+  if (!url) return url;
+  if (url.startsWith('http://')) {
+    return PROXY_URL + '/?url=' + encodeURIComponent(url);
+  }
+  return url; // الروابط اللي أصلاً https تتصل مباشرة من غير proxy
+}
+
 const themeColors = ['#7c3aed','#0ea5e9','#10b981','#ef4444','#f59e0b','#ec4899','#6b7280','#06b6d4'];
 const themeNames = ['بنفسجي','أزرق','أخضر','أحمر','ذهبي','وردي','رمادي','سماوي'];
 
@@ -116,7 +128,7 @@ window.__startApp = function(accts){
 };
 
 function fetchJSON(url){
-  return fetch(url).then(r => r.json()).catch(() => null);
+  return fetch(proxify(url)).then(r => r.json()).catch(() => null);
 }
 
 function loadAll(){
@@ -509,16 +521,17 @@ function openPlayer(url, title, isHls){
   document.getElementById('playerTitle').innerText = title;
   document.getElementById('playerModal').classList.add('active');
   const video = document.getElementById('videoEl');
+  const playUrl = proxify(url);
 
   if (hlsInstance){ hlsInstance.destroy(); hlsInstance = null; }
 
   if (isHls && window.Hls && Hls.isSupported()){
     hlsInstance = new Hls();
-    hlsInstance.loadSource(url);
+    hlsInstance.loadSource(playUrl);
     hlsInstance.attachMedia(video);
     video.play().catch(()=>{});
   } else {
-    video.src = url;
+    video.src = playUrl;
     video.play().catch(()=>{});
   }
 }
@@ -559,4 +572,3 @@ window.addEventListener('scroll', () => {
 // init
 initThemeFromStorage();
 buildThemeSwatches();
-
